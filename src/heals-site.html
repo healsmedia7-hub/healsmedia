@@ -23,8 +23,8 @@ nav.scrolled{background:rgba(4,22,46,.95);backdrop-filter:blur(20px);box-shadow:
 .nav-logo-icon{height:38px;width:38px;object-fit:contain;flex-shrink:0}
 .nav-logo-text{font-size:16px;font-weight:800;color:#fff;letter-spacing:-0.3px;white-space:nowrap;display:none}
 @media(min-width:480px){.nav-logo-text{display:block}}
-.nav-links{display:none;gap:32px;list-style:none}
-@media(min-width:768px){.nav-links{display:flex}}
+.nav-links{display:flex;gap:14px;list-style:none;flex-wrap:wrap;justify-content:flex-end}
+@media(min-width:768px){.nav-links{gap:32px}}
 .nav-links a{color:rgba(255,255,255,.62);text-decoration:none;font-size:14px;font-weight:500;letter-spacing:.2px;transition:color .2s;position:relative}
 .nav-links a::after{content:'';position:absolute;bottom:-4px;left:0;width:0;height:2px;background:var(--teal-b);transition:width .25s}
 .nav-links a:hover{color:#fff} .nav-links a:hover::after{width:100%}
