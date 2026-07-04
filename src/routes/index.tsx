@@ -1,24 +1,38 @@
 import { createFileRoute } from "@tanstack/react-router";
+import siteHtml from "../heals-site.html?raw";
 
-// No head() here: the home route inherits title/description/og/twitter from
-// __root.tsx, and ships no og:image so serve-time hosting can inject the
-// project's social preview (explicit og:image or latest screenshot).
 export const Route = createFileRoute("/")({
+  head: () => ({
+    meta: [
+      { title: "Heals Media — Visual Stories That Change Health Outcomes" },
+      {
+        name: "description",
+        content:
+          "Heals Media creates animations, illustrations, and visual stories that make health information land with the communities who need it most.",
+      },
+      { property: "og:title", content: "Heals Media" },
+      {
+        property: "og:description",
+        content:
+          "Visual storytelling for hospitals, NGOs, and public health programs across Africa.",
+      },
+    ],
+  }),
   component: Index,
 });
 
-// IMPORTANT: Replace this placeholder. See ./README.md for routing conventions.
 function Index() {
   return (
-    <div
-      className="flex min-h-screen items-center justify-center"
-      style={{ backgroundColor: "#fcfbf8" }}
-    >
-      <img
-        data-lovable-blank-page-placeholder="REMOVE_THIS"
-        src="https://cdn.gpteng.co/blank-app-v1.svg"
-        alt="Your app will live here!"
-      />
-    </div>
+    <iframe
+      title="Heals Media"
+      srcDoc={siteHtml}
+      style={{
+        position: "fixed",
+        inset: 0,
+        width: "100vw",
+        height: "100vh",
+        border: 0,
+      }}
+    />
   );
 }
