@@ -326,6 +326,16 @@ footer{background:#020D1F;padding:clamp(48px,8vw,80px) clamp(20px,6vw,80px) 32px
 @media(prefers-reduced-motion:reduce){
   .reveal,.orb,.about-hero-orb,.svc-hero-orb,.port-hero-orb,.float-card,.pulse{animation:none;opacity:1;transform:none;transition:none}
 }
+
+/* Illustration hover popup */
+.illus-card{position:relative}
+.illus-hover-hint{position:absolute;bottom:10px;right:12px;z-index:3;font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:#fff;background:rgba(0,0,0,.55);padding:6px 10px;border-radius:999px;pointer-events:none;opacity:.85}
+#illus-pop{position:fixed;inset:0;background:rgba(3,8,16,.85);backdrop-filter:blur(8px);display:none;align-items:center;justify-content:center;z-index:9999;padding:24px;opacity:0;transition:opacity .2s}
+#illus-pop.show{display:flex;opacity:1}
+#illus-pop .pop-inner{display:grid;grid-template-columns:1fr;gap:16px;max-width:1100px;width:100%;max-height:90vh}
+@media(min-width:720px){#illus-pop .pop-inner{grid-template-columns:1fr 1fr}}
+#illus-pop img{width:100%;height:100%;max-height:86vh;object-fit:contain;border-radius:12px;background:#0b1220;box-shadow:0 20px 60px rgba(0,0,0,.5)}
+#illus-pop .pop-close{position:absolute;top:18px;right:20px;width:40px;height:40px;border-radius:999px;border:1px solid rgba(255,255,255,.25);background:rgba(0,0,0,.5);color:#fff;font-size:22px;cursor:pointer;display:flex;align-items:center;justify-content:center}
 </style>
 </head>
 <body>
@@ -655,7 +665,7 @@ footer{background:#020D1F;padding:clamp(48px,8vw,80px) clamp(20px,6vw,80px) 32px
   <div class="section-inner">
     <div class="port-grid">
 
-      <div class="port-card featured reveal d1">
+      <div class="port-card reveal d1">
         <div class="port-thumb pt-1" style="padding:0">
           <video src="/__l5e/assets-v1/fde62c2b-7cdf-4522-b434-fbb3ad49164f/family-planning.mp4" controls playsinline preload="metadata" style="width:100%;height:100%;object-fit:cover;position:relative;z-index:2;background:#000"></video>
         </div>
@@ -677,9 +687,10 @@ footer{background:#020D1F;padding:clamp(48px,8vw,80px) clamp(20px,6vw,80px) 32px
         </div>
       </div>
 
-      <div class="port-card reveal d3">
-        <div class="port-thumb pt-3" style="padding:0">
-          <img src="/__l5e/assets-v1/29075722-c767-4f7d-baf8-936b9afef28f/hiding-in-the-toilet.jpg" alt="Illustration of a schoolgirl standing in a bathroom" style="width:100%;height:100%;object-fit:cover;position:relative;z-index:2;background:#000" />
+      <div class="port-card reveal d3 illus-card" data-images='["/__l5e/assets-v1/29075722-c767-4f7d-baf8-936b9afef28f/hiding-in-the-toilet.jpg","/__l5e/assets-v1/2f621bc6-0bce-4d65-b9a5-222a6b331af0/hiding-in-the-toilet-2.png"]'>
+        <div class="port-thumb pt-3" style="padding:0;background:#0b1220">
+          <img src="/__l5e/assets-v1/29075722-c767-4f7d-baf8-936b9afef28f/hiding-in-the-toilet.jpg" alt="Illustration of a schoolgirl standing in a bathroom" style="width:100%;height:100%;object-fit:contain;position:relative;z-index:2;background:#0b1220" />
+          <div class="illus-hover-hint">Hover to preview</div>
         </div>
         <div class="port-info">
           <div class="port-type">Publishing · Illustration</div>
@@ -838,6 +849,32 @@ function submitForm(e){
   document.getElementById('fContent').style.display='none';
   document.getElementById('fOk').style.display='block';
 }
+
+// Illustration hover popup
+(function(){
+  const pop=document.createElement('div');
+  pop.id='illus-pop';
+  pop.innerHTML='<button class="pop-close" aria-label="Close">&times;</button><div class="pop-inner"></div>';
+  document.body.appendChild(pop);
+  const inner=pop.querySelector('.pop-inner');
+  const close=()=>{pop.classList.remove('show')};
+  pop.addEventListener('click',(e)=>{if(e.target===pop||e.target.classList.contains('pop-close'))close()});
+  document.addEventListener('keydown',(e)=>{if(e.key==='Escape')close()});
+  let hoverTimer;
+  document.querySelectorAll('.illus-card').forEach(card=>{
+    const imgs=JSON.parse(card.dataset.images||'[]');
+    const open=()=>{
+      inner.innerHTML=imgs.map(s=>`<img src="${s}" alt="Illustration preview" />`).join('');
+      pop.classList.add('show');
+    };
+    card.addEventListener('mouseenter',()=>{hoverTimer=setTimeout(open,180)});
+    card.addEventListener('mouseleave',()=>{clearTimeout(hoverTimer)});
+    card.addEventListener('click',(e)=>{
+      // Don't open when clicking a link/button inside; here nothing important
+      open();
+    });
+  });
+})();
 </script>
 </body>
 </html>
