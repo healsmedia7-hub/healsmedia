@@ -849,6 +849,32 @@ function submitForm(e){
   document.getElementById('fContent').style.display='none';
   document.getElementById('fOk').style.display='block';
 }
+
+// Illustration hover popup
+(function(){
+  const pop=document.createElement('div');
+  pop.id='illus-pop';
+  pop.innerHTML='<button class="pop-close" aria-label="Close">&times;</button><div class="pop-inner"></div>';
+  document.body.appendChild(pop);
+  const inner=pop.querySelector('.pop-inner');
+  const close=()=>{pop.classList.remove('show')};
+  pop.addEventListener('click',(e)=>{if(e.target===pop||e.target.classList.contains('pop-close'))close()});
+  document.addEventListener('keydown',(e)=>{if(e.key==='Escape')close()});
+  let hoverTimer;
+  document.querySelectorAll('.illus-card').forEach(card=>{
+    const imgs=JSON.parse(card.dataset.images||'[]');
+    const open=()=>{
+      inner.innerHTML=imgs.map(s=>`<img src="${s}" alt="Illustration preview" />`).join('');
+      pop.classList.add('show');
+    };
+    card.addEventListener('mouseenter',()=>{hoverTimer=setTimeout(open,180)});
+    card.addEventListener('mouseleave',()=>{clearTimeout(hoverTimer)});
+    card.addEventListener('click',(e)=>{
+      // Don't open when clicking a link/button inside; here nothing important
+      open();
+    });
+  });
+})();
 </script>
 </body>
 </html>
