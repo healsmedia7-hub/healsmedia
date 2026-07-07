@@ -329,6 +329,13 @@ footer{background:#020D1F;padding:clamp(48px,8vw,80px) clamp(20px,6vw,80px) 32px
 
 /* Illustration hover popup */
 .illus-card{position:relative}
+.mpv-stage{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;z-index:2;perspective:900px;overflow:hidden}
+.mpv-stage::before{content:'';position:absolute;inset:auto 0 0 0;height:40%;background:linear-gradient(to top,rgba(0,168,150,.18),transparent)}
+.mpv-box{width:46%;aspect-ratio:3/4;background:linear-gradient(145deg,#f6fbfb 0%,#dfeff0 55%,#a9c9cc 100%);border-radius:10px;box-shadow:0 30px 60px -20px rgba(0,0,0,.6),inset 0 0 0 1px rgba(255,255,255,.6);transform:rotateY(-22deg) rotateX(6deg);display:flex;align-items:flex-end;justify-content:center;padding:14px;font-family:Georgia,serif;color:#0b4a55;font-size:22px;font-weight:700;letter-spacing:2px;animation:mpvFloat 6s ease-in-out infinite;position:relative}
+.mpv-box::before{content:'';position:absolute;top:14%;left:10%;right:10%;height:8px;background:#00A896;border-radius:2px}
+.mpv-box::after{content:'';position:absolute;top:26%;left:10%;right:40%;height:4px;background:rgba(11,74,85,.35);border-radius:2px}
+.mpv-badge{position:absolute;top:14px;right:14px;background:rgba(0,168,150,.9);color:#fff;font-size:11px;font-weight:700;letter-spacing:2px;padding:5px 10px;border-radius:20px;z-index:3}
+@keyframes mpvFloat{0%,100%{transform:rotateY(-22deg) rotateX(6deg) translateY(0)}50%{transform:rotateY(-14deg) rotateX(4deg) translateY(-8px)}}
 .illus-hover-hint{position:absolute;bottom:10px;right:12px;z-index:3;font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:#fff;background:rgba(0,0,0,.55);padding:6px 10px;border-radius:999px;pointer-events:none;opacity:.85}
 #illus-pop{position:fixed;inset:0;background:rgba(3,8,16,.85);backdrop-filter:blur(8px);display:none;align-items:center;justify-content:center;z-index:9999;padding:24px;opacity:0;transition:opacity .2s}
 #illus-pop.show{display:flex;opacity:1}
@@ -349,6 +356,7 @@ footer{background:#020D1F;padding:clamp(48px,8vw,80px) clamp(20px,6vw,80px) 32px
     <li><a href="#" onclick="showPage('home')" data-page="home">Home</a></li>
     <li><a href="#" onclick="showPage('services')" data-page="services">Services</a></li>
     <li><a href="#" onclick="showPage('portfolio')" data-page="portfolio">Portfolio</a></li>
+    <li><a href="#" onclick="showPage('about')" data-page="about">About</a></li>
   </ul>
   <button class="btn nav-cta" onclick="openForm()">Start a Project</button>
 </nav>
@@ -699,6 +707,31 @@ footer{background:#020D1F;padding:clamp(48px,8vw,80px) clamp(20px,6vw,80px) 32px
         </div>
       </div>
 
+      <div class="port-card reveal d1">
+        <div class="port-thumb pt-1" style="padding:0">
+          <video src="/__l5e/assets-v1/b9b51dc8-618c-492f-9822-11edf2ec99b8/cervical-cancer.mp4" controls playsinline preload="metadata" style="width:100%;height:100%;object-fit:cover;position:relative;z-index:2;background:#000"></video>
+        </div>
+        <div class="port-info">
+          <div class="port-type">Awareness Campaign · Animation</div>
+          <h3>Cervical Cancer Awareness</h3>
+          <p>An awareness animation encouraging women to prioritise screening and early detection — turning a difficult conversation into an accessible, life-saving message.</p>
+        </div>
+      </div>
+
+      <div class="port-card reveal d2">
+        <div class="port-thumb pt-2" style="padding:0;background:radial-gradient(circle at 30% 30%,#0e4d5a,#061018)">
+          <div class="mpv-stage">
+            <div class="mpv-box"><span>Rx</span></div>
+            <div class="mpv-badge">3D</div>
+          </div>
+        </div>
+        <div class="port-info">
+          <div class="port-type">Pharma · 3D Visualization</div>
+          <h3>Medical Product Visualization</h3>
+          <p>Photoreal 3D product visualisation for pharmaceutical and medical device brands — showing packaging, mechanism of action, and clinical detail with cinematic clarity.</p>
+        </div>
+      </div>
+
     </div>
 
     <div class="process-cta reveal" style="margin-top:60px">
@@ -741,7 +774,77 @@ footer{background:#020D1F;padding:clamp(48px,8vw,80px) clamp(20px,6vw,80px) 32px
     </div>
   </div>
 </footer>
+  </div>
+
+<div id="page-about" class="page">
+
+  <section class="port-hero">
+    <div class="port-hero-orb"></div>
+    <div class="hero-grid"></div>
+    <div class="port-hero-content">
+      <span class="eyebrow">About Heals Media</span>
+      <h1>Making health <span class="grad">clear, human,</span> and impossible to ignore.</h1>
+      <p class="lead">We're a team of healthcare professionals, creatives, and storytellers passionate about making health information simple, engaging, and easy to understand. By combining medical expertise with creative storytelling, we create impactful visual content that empowers healthier communities across Africa.</p>
+    </div>
+  </section>
+
+  <section class="section" style="background:var(--deep)">
+    <div class="section-inner">
+      <div class="port-grid" style="grid-template-columns:repeat(auto-fit,minmax(300px,1fr))">
+        <div class="port-card reveal d1" style="padding:34px">
+          <div class="port-type" style="margin-bottom:10px">Our Mission</div>
+          <h3 style="font-size:22px;margin:0 0 12px">Health information that actually lands.</h3>
+          <p style="color:rgba(255,255,255,.7);line-height:1.7;margin:0">To translate complex health messages into visual stories that communities across Africa understand, trust, and act on — so that every family has access to the information they need to live healthier lives.</p>
+        </div>
+        <div class="port-card reveal d2" style="padding:34px">
+          <div class="port-type" style="margin-bottom:10px">Our Vision</div>
+          <h3 style="font-size:22px;margin:0 0 12px">An Africa where no life is lost to unclear health information.</h3>
+          <p style="color:rgba(255,255,255,.7);line-height:1.7;margin:0">A continent where every hospital, NGO, and public health program can reach its audience with visuals that inform, empower, and change behaviour — one story at a time.</p>
+        </div>
+        <div class="port-card reveal d3" style="padding:34px">
+          <div class="port-type" style="margin-bottom:10px">Our Team</div>
+          <h3 style="font-size:22px;margin:0 0 12px">Healthcare professionals meet creative storytellers.</h3>
+          <p style="color:rgba(255,255,255,.7);line-height:1.7;margin:0">Doctors, nurses, animators, illustrators, and writers working side by side. Medical accuracy from the clinicians, emotional resonance from the creatives — every frame reviewed by both.</p>
+        </div>
+      </div>
+
+      <div class="process-cta reveal" style="margin-top:60px">
+        <h3>Let's tell your health story.</h3>
+        <p>Whether you're a hospital, NGO, or public health program — we'd love to help you reach your audience.</p>
+        <button class="btn btn-primary" onclick="openForm()">Start a Project</button>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <div class="footer-inner">
+      <div class="footer-top">
+        <div>
+          <img class="footer-logo-img" src="/__l5e/assets-v1/f9df2f78-a44e-4c8b-b6b4-c5f6fa5f5027/heals-logo.png" alt="Heals Media" onerror="this.style.display='none'" />
+          <p style="color:rgba(255,255,255,.55);max-width:320px;margin-top:14px;line-height:1.6">Visual storytelling for health communication across Africa.</p>
+        </div>
+        <div class="footer-col">
+          <h4>Company</h4>
+          <a href="#" onclick="showPage('services')">Services</a>
+          <a href="#" onclick="showPage('portfolio')">Portfolio</a>
+          <a href="#" onclick="showPage('about')">About</a>
+        </div>
+        <div class="footer-col">
+          <h4>Contact</h4>
+          <a href="mailto:healsmedia7@gmail.com">healsmedia7@gmail.com</a>
+          <a href="https://wa.me/2348066724880" target="_blank">WhatsApp: 08066724880</a>
+          <a href="#" onclick="openForm()">Start a Project</a>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <span>© 2026 Heals Media. All rights reserved.</span>
+        <span>Health Communication Company · Africa</span>
+      </div>
+    </div>
+  </footer>
 </div>
+
+
 
 <div class="modal-overlay" id="modal" onclick="closeOnBg(event)">
   <div class="modal" role="dialog" aria-modal="true">
