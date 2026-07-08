@@ -931,6 +931,14 @@ function currentPage(){
   const p=document.querySelector('.page.active');
   return p?p.id.replace('page-',''):'home';
 }
+document.addEventListener('click',(e)=>{
+  const link=e.target.closest('a[onclick*="showPage"]');
+  if(!link)return;
+  const match=(link.getAttribute('onclick')||'').match(/showPage\('([^']+)'\)/);
+  if(!match)return;
+  e.preventDefault();
+  showPage(match[1]);
+});
 window.addEventListener('DOMContentLoaded',()=>{
   initReveal();
   document.getElementById('nav').classList.toggle('scrolled',window.scrollY>30);
