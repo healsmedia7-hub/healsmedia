@@ -10,13 +10,15 @@ export const Route = createFileRoute("/")({
         content:
           "Heals Media creates animations, illustrations, and visual stories that make health information land with the communities who need it most.",
       },
-      { property: "og:title", content: "Heals Media" },
+      { property: "og:title", content: "Heals Media — Visual Stories That Change Health Outcomes" },
       {
         property: "og:description",
         content:
           "Visual storytelling for hospitals, NGOs, and public health programs across Africa.",
       },
+      { property: "og:url", content: "https://healsmedia.lovable.app/" },
     ],
+    links: [{ rel: "canonical", href: "https://healsmedia.lovable.app/" }],
   }),
   component: Index,
 });
