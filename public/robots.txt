@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://healsmedia.lovable.app/sitemap.xml
