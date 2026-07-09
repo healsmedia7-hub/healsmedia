@@ -1,0 +1,9 @@
+# Heals Media
+
+> Visual storytelling studio creating animations and illustrations that improve health outcomes across Africa.
+
+Heals Media is a team of healthcare professionals, creatives, and storytellers turning complex health information into engaging visual stories for hospitals, NGOs, and public health programs.
+
+## Pages
+
+- [Home](/): Services, portfolio, and about — visual stories that change health outcomes.
