@@ -960,19 +960,52 @@ function closeForm(){document.getElementById('modal').classList.remove('open');d
 function closeOnBg(e){if(e.target===document.getElementById('modal'))closeForm()}
 document.addEventListener('keydown',e=>{if(e.key==='Escape')closeForm()});
 
-// Form submit
+// Form submit — sends to email via FormSubmit (no signup needed).
+// NOTE: On the very first submission, FormSubmit sends an activation email
+// to healsmedia7@gmail.com. Click the link once and every future brief
+// arrives directly in the inbox.
 function submitForm(e){
   e.preventDefault();
-  const d=new FormData(e.target);
-  const body='PROJECT BRIEF — HEALS MEDIA\n\n'
-    +'Name: '+d.get('name')+'\nEmail: '+d.get('email')+'\nOrg: '+(d.get('org')||'N/A')+'\nPhone: '+(d.get('phone')||'N/A')
-    +'\n\nType: '+d.get('type')+'\nAudience: '+(d.get('aud')||'N/A')+'\nBudget: '+(d.get('budget')||'N/A')+'\nTimeline: '+(d.get('tl')||'N/A')
-    +'\n\nDescription:\n'+d.get('desc')+'\n\nRefs: '+(d.get('refs')||'N/A');
-  window.location.href='mailto:healsmedia7@gmail.com?subject='
-    +encodeURIComponent('New Project Brief — '+d.get('name')+' ('+d.get('type')+')')
-    +'&body='+encodeURIComponent(body);
-  document.getElementById('fContent').style.display='none';
-  document.getElementById('fOk').style.display='block';
+  const form=e.target;
+  const d=new FormData(form);
+  const btn=form.querySelector('.f-submit');
+  if(btn){btn.disabled=true;btn.textContent='Sending…';}
+
+  const payload=new FormData();
+  payload.append('_subject','New Project Brief — '+d.get('name')+' ('+d.get('type')+')');
+  payload.append('_replyto',d.get('email')||'');
+  payload.append('_template','table');
+  payload.append('_captcha','false');
+  payload.append('Name',d.get('name')||'');
+  payload.append('Email',d.get('email')||'');
+  payload.append('Organization',d.get('org')||'N/A');
+  payload.append('Phone / WhatsApp',d.get('phone')||'N/A');
+  payload.append('Project Type',d.get('type')||'');
+  payload.append('Audience',d.get('aud')||'N/A');
+  payload.append('Budget',d.get('budget')||'N/A');
+  payload.append('Timeline',d.get('tl')||'N/A');
+  payload.append('Description',d.get('desc')||'');
+  payload.append('Reference links',d.get('refs')||'N/A');
+
+  fetch('https://formsubmit.co/ajax/healsmedia7@gmail.com',{
+    method:'POST',
+    headers:{'Accept':'application/json'},
+    body:payload
+  }).then(r=>r.json()).then(()=>{
+    document.getElementById('fContent').style.display='none';
+    document.getElementById('fOk').style.display='block';
+  }).catch(()=>{
+    // Fallback: open user's mail client if the network call fails.
+    const body='PROJECT BRIEF — HEALS MEDIA\n\n'
+      +'Name: '+d.get('name')+'\nEmail: '+d.get('email')+'\nOrg: '+(d.get('org')||'N/A')+'\nPhone: '+(d.get('phone')||'N/A')
+      +'\n\nType: '+d.get('type')+'\nAudience: '+(d.get('aud')||'N/A')+'\nBudget: '+(d.get('budget')||'N/A')+'\nTimeline: '+(d.get('tl')||'N/A')
+      +'\n\nDescription:\n'+d.get('desc')+'\n\nRefs: '+(d.get('refs')||'N/A');
+    window.top.location.href='mailto:healsmedia7@gmail.com?subject='
+      +encodeURIComponent('New Project Brief — '+d.get('name')+' ('+d.get('type')+')')
+      +'&body='+encodeURIComponent(body);
+  }).finally(()=>{
+    if(btn){btn.disabled=false;btn.textContent='Send My Project Brief';}
+  });
 }
 
 // Illustration hover popup
