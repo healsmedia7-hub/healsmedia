@@ -1,4 +1,4 @@
-import { copyFileSync, existsSync, mkdirSync, readdirSync, statSync, writeFileSync } from "node:fs";
+import { copyFileSync, existsSync, mkdirSync, readFileSync, readdirSync, statSync, writeFileSync } from "node:fs";
 import { dirname, join } from "node:path";
 
 const root = process.cwd();
@@ -22,4 +22,4 @@ function copyDirContents(from, to) {
 
 mkdirSync(dist, { recursive: true });
 copyDirContents(publicDir, dist);
-writeFileSync(join(dist, "index.html"), copyFileSync ? String(await import("node:fs").then(({ readFileSync }) => readFileSync(siteHtml, "utf8"))) : "");
+writeFileSync(join(dist, "index.html"), readFileSync(siteHtml, "utf8"));
