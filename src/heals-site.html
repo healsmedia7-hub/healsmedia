@@ -965,6 +965,8 @@ const WHATSAPP_URL='https://api.whatsapp.com/send?phone=2348066724880&text='+enc
 function openWhatsApp(e){
   if(e)e.preventDefault();
   try{
+    const opened=window.open(WHATSAPP_URL,'_blank','noopener');
+    if(opened)return false;
     if(window.top&&window.top!==window){window.top.location.href=WHATSAPP_URL;}
     else{window.location.href=WHATSAPP_URL;}
   }catch(_){window.location.href=WHATSAPP_URL;}
